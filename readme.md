@@ -13,11 +13,11 @@ pip install requirements
 
 ## Run the code
 ```
-    Usage: annotate_ar.py [OPTIONS] source target
-    where
-      source          -   the source input
-      target          -   the target side of a parallel corpus or a system output
-    OPTIONS
+Usage: annotate_ar.py [OPTIONS] source target
+where
+    source - the source input
+    target - the target side of a parallel corpus or a system output
+OPTIONS
 ```
 
 Example:
