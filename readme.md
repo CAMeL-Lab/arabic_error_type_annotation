@@ -11,7 +11,7 @@ You will need Python 3.6 and above (64-bit).
 pip install requirements
 ```
 
-## Running the code
+## Usage
 ### Annotation:
 ```
 Usage: annotate_err_type.py [OPTIONS] reference target
