@@ -17,8 +17,8 @@ Annotation Command Line:
 ```
 Usage: annotate_ar.py [OPTIONS] source target
 where
-    source - the source input
-    target - the target side of a parallel corpus or a system output
+    source - the source input (.m2 file)
+    target - the system output
 OPTIONS
 ```
 
