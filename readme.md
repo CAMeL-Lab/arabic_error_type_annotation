@@ -12,7 +12,7 @@ pip install requirements
 ```
 
 ## Running the code
-### Annotation Command Line:
+### Annotation:
 ```
 Usage: annotate_err_type.py [OPTIONS] reference target
 where
