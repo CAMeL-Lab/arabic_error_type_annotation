@@ -12,10 +12,24 @@ pip install requirements
 ```
 
 ## Run the code
-
 Annotation Command Line:
 ```
-Usage: annotate_ar.py [OPTIONS] source target
+Usage: annotate_err_type.py [OPTIONS] reference target
+where
+    reference - the reference file
+    target - the system output
+OPTIONS
+```
+
+Example:
+
+```
+python annotate_err_type.py sample/ref_sample.txt sample/sys_sample.txt
+```
+
+Annotation and evaluation using m2 files (Command Line):
+```
+Usage: annotate_eval_ar.py [OPTIONS] source target
 where
     source - the source input (.m2 file)
     target - the system output
@@ -25,7 +39,7 @@ OPTIONS
 Example:
 
 ```
-python annotate_ar.py sample/QALB-Test2014.m2 sample/CLMB-1
+python annotate_eval_ar.py sample/QALB-Test2014.m2 sample/CLMB-1
 ```
 
 This generates:

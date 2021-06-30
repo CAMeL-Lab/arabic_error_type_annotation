@@ -36,6 +36,26 @@ def align_input_system(f_system_path, out_path):
         fw.write("\t".join([al[0].replace("#", " "), al[1].replace("#", " ")]) + "\n")
 
 
+def align_ref_system_basic(f_system_path, f_ref_path, out_path):
+    ref_lines = []
+    with codecs.open(f_ref_path, "r", "utf8") as f:
+        for l in f:
+            ref_lines.append(" ".join(l.split()[1:]))
+    system_lines = []
+    with codecs.open(f_system_path, "r", "utf8") as f:
+        for l in f:
+            system_lines.append(" ".join(l.split()[1:]))
+
+    alignments = align_api(system_lines, ref_lines)
+    alignments = _prepare_alignments(alignments)
+    alignments = adjust_null_to_token(alignments)
+    fw = codecs.open(out_path, "w", "utf8")
+    fw.write("source" + "\t" + "reference" + "\n")
+
+    for al in alignments:
+        fw.write("\t".join([al[0].replace("#", " "), al[1].replace("#", " ")]) + "\n")
+
+
 # align_input_system(f_input_path, f_system_path)
 
 def _get_consecutive_ranges(list):
@@ -56,8 +76,10 @@ def adjust_null_to_token(alignments):
         if e[0] == '':
             list_null_indexes.append(i)
         i += 1
-
-    ranges = _get_consecutive_ranges(list_null_indexes)
+    if len(list_null_indexes) > 0:
+        ranges = _get_consecutive_ranges(list_null_indexes)
+    else:
+        ranges = []
 
     for rg in ranges:
         if type(rg) is tuple:
