@@ -11,8 +11,8 @@ You will need Python 3.6 and above (64-bit).
 pip install requirements
 ```
 
-## Run the code
-Annotation Command Line:
+## Running the code
+### Annotation Command Line:
 ```
 Usage: annotate_err_type.py [OPTIONS] reference target
 where
@@ -26,8 +26,9 @@ Example:
 ```
 python annotate_err_type.py sample/ref_sample.txt sample/sys_sample.txt
 ```
+This generates a file with the name ```annot_sys_ref.tsv``` in the ```output``` folder. This file contains all the ```<sys,ref>``` pairs with the error types.
 
-Annotation and evaluation using m2 files (Command Line):
+### Annotation and evaluation using m2 files (Command Line):
 ```
 Usage: annotate_eval_ar.py [OPTIONS] source target
 where
