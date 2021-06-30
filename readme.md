@@ -1,7 +1,7 @@
 # Arabic Error Type Annotation
 
 ## Description
-Arabic Error Type Annotation tool aims to annotate Arabic error types following the ALC tagset annotation.
+The Arabic Error Type Annotation tool aims to annotate Arabic error types following the ALC tagset annotation.
 ## Installation
 You will need Python 3.6 and above (64-bit).
 
