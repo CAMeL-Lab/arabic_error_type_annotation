@@ -12,6 +12,8 @@ pip install requirements
 ```
 
 ## Run the code
+
+Annotation Command Line:
 ```
 Usage: annotate_ar.py [OPTIONS] source target
 where
