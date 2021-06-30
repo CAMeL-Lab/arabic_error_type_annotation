@@ -5,8 +5,8 @@ import numpy as np
 dirname = os.path.dirname(__file__)
 
 input_path = os.path.join(dirname, "../../input/raw_qalb_test.txt")
-ref_path = os.path.join(dirname, "../../qalb_test/QALB-Test2014.m2")
-out_align_input_ref = os.path.join(dirname, "../../output/align_input_ref.tsv")
+# ref_path = os.path.join(dirname, "../../qalb_test/QALB-Test2014.m2")
+# out_align_input_ref = os.path.join(dirname, "../../output/align_input_ref.tsv")
 
 
 def _generate_align_pairs(list_indices_input_correct, current_line):
