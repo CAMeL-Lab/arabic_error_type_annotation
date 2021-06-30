@@ -27,6 +27,11 @@ Example:
 ```
 python annotate_ar.py sample/QALB-Test2014.m2 sample/CLMB-1
 ```
+
+This generates:
+1. ```annot_input_ref.tsv``` file that contains the annotation of the error types between the input and the reference.
+2. ```annot_input_sys.tsv``` file that contains the annotation of the error types between the input and the system.
+3.  A ```.tsv``` file in the ```results``` folder ```subclasses_results_CLMB-1.tsv```. This file contains the results of the evaluation of the system input against the reference.
 ## License
 
 ## Contribute
