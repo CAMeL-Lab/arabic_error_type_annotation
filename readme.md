@@ -31,7 +31,7 @@ python annotate_err_type_ar.py sample/sys_sample.txt sample/ref_sample.txt
 
 The output lists triplets of system, reference and error types for the complete list of error types (see table of error types below).
 
-Example of a sentence of 5 words 
+Example:
 
 System sentence:  إن أمتحان الاستاذة صعبة
 
