@@ -33,6 +33,20 @@ The output lists triplets of system, reference and error types for the complete 
 
 Example of a sentence of 5 words 
 
+System sentence:  إن أمتحان الاستاذة صعبة
+
+Reference sentence: إن إمتحان الأستاذ صعب
+
+Annotation result:
+
+|          |         |       | 
+|----------|---------|-------| 
+| إن       | إن      | UC    | 
+| أمتحان   | إمتحان  | OH    | 
+| الاستاذة | الأستاذ | OH+XG | 
+| صعبة     | صعب     | XG    | 
+
+ 
 
 ### Annotation and evaluation using m2 files (Command Line):
 ```
