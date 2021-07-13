@@ -39,7 +39,7 @@ Reference sentence: إن إمتحان الأستاذ صعب
 
 Annotation result:
 
-|          |         |       | 
+|      System    |   Reference      |  Error type     | 
 |----------|---------|-------| 
 | إن       | إن      | UC    | 
 | أمتحان   | إمتحان  | OH    | 
