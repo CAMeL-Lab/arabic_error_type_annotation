@@ -70,8 +70,8 @@ In the configuration file ```config.json```, the user should specify the mode of
 
 |               |           |                                                     |                            |                            | 
 |---------------|-----------|-----------------------------------------------------|----------------------------|----------------------------| 
-| Class         | Sub-class | Description                                         | Arabic Example             | Buckwalter Transliteration | 
-| Orthographic  | OH        | Hamza error                                         | اكثر← أكثر                 | Akvr → >kvr                | 
+| **Class**         | **Sub-class** | **Description**                                         | **Arabic Example**             | **Buckwalter Transliteration** | 
+| **Orthographic**  | OH        | Hamza error                                         | اكثر← أكثر                 | Akvr → >kvr                | 
 |               | OT        | Confusion in Ha and Ta Mutadarrifatin               | مشاركه ← مشاركة            | m$Arkh → m$Arkp            | 
 |               | OA        | Confusuion in Alif and Ya Mutadarrifatin            | علي ← على                  | Ely → ElY                  | 
 |               | OW        | Confusion in Alif Fariqa                            | وكانو ←  وكانوا            | wkAnw→ wkAnwA              | 
@@ -83,26 +83,26 @@ In the configuration file ```config.json```, the user should specify the mode of
 |               | OD        | Additional character(s)                             | يعدوم ← يدوم               | yEdwm → ydwm               | 
 |               | OM        | Missing character(s)                                | سالين ← سائلين             | sAlyn → sA}lyn             | 
 |               | OO        | Other orthographic errors                           | -                          | -                          | 
-| Morphological | MI        | Word inflection                                     | معروف ← عارف               | mErwf → EArf               | 
+| **Morphological** | MI        | Word inflection                                     | معروف ← عارف               | mErwf → EArf               | 
 |               | MT        | Verb tense                                          | تفرحني ← أفرحتني           | tfrHny → >frHtny           | 
 |               | MO        | Other morphological errors                          | -                          | -                          | 
-| Syntax        | XC        | Case                                                | رائع ← رائعاً              | rA}E → rA}EAF              | 
+| **Syntax**        | XC        | Case                                                | رائع ← رائعاً              | rA}E → rA}EAF              | 
 |               | XF        | Definiteness                                        | السن ← سن                  | Alsn → sn                  | 
 |               | XG        | Gender                                              | الغربي ← الغربية           | Algrby → Algrbyp           | 
 |               | XN        | Number                                              | فكرتي ← أفكاري             | fkrty → >fkAry             | 
 |               | XT        | Unnecessary word                                    | على ←Null                  | ElY →Null                  | 
 |               | XM        | Missing word                                        | Null ← على                 | Null → ElY                 | 
 |               | XO        | Other syntactic errors                              | -                          | -                          | 
-| Semantic      | SW        | Word selection error                                | من ← عن                    | mn → En                    | 
+| **Semantic**      | SW        | Word selection error                                | من ← عن                    | mn → En                    | 
 |               | SF        | Fasl wa wasl (confusion in conjunction use/non-use) | سبحان ← فسبحان             | sbHAn → fsbHAn             | 
 |               | SO        | Other semantic errors                               | -                          | -                          | 
-| Punctuation   | PC        | Punctuation confusion                               | المتوسط. ← المتوسط،        | AlmtwsT. → AlmtwsT،        | 
+| **Punctuation**   | PC        | Punctuation confusion                               | المتوسط. ← المتوسط،        | AlmtwsT. → AlmtwsT،        | 
 |               | PT        | Unnecessary punctuation                             | العام,  ← العام            | AlEAm,  → AlEAm            | 
 |               | PM        | Missing punctuation                                 | العظيم ←  العظيم،          | AlEZym →  AlEZym،          | 
 |               | PO        | Other errors in punctuation                         | -                          | -                          | 
 |               |           |                                                     |                            |                            | 
-| Merge         | MG        | Words are merged                                    | ذهبتالبارحة ← ذهبت البارحة | *hbtAlbArHp → *hbt AlbArHp | 
-| Split         | SP        | Words are split                                     | المحا دثات ← المحادثات     | AlmHA dvAt → AlmHAdvAt     | 
+| **Merge**         | MG        | Words are merged                                    | ذهبتالبارحة ← ذهبت البارحة | *hbtAlbArHp → *hbt AlbArHp | 
+| **Split**         | SP        | Words are split                                     | المحا دثات ← المحادثات     | AlmHA dvAt → AlmHAdvAt     | 
 
 ## License
 
