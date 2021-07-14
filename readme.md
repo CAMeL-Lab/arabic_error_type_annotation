@@ -68,6 +68,27 @@ This generates:
 2. ```annot_input_sys.tsv``` file in the ```output``` folder that contains the error types annotation between the input and the system.
 3.  ```subclasses_results_CLMB-1.tsv``` file in the ```results``` folder. This file contains the results of the evaluation of the system's output against the reference.
 
+### Generate source from m2 file
+```
+Usage: generate-m2-source.py m2-file
+where
+    m2-file -   the m2 file
+```
+
+Example:
+
+```python generate-m2-source.py sample/QALB-Test2014.m2```
+
+### Generate reference from m2 file
+```
+Usage: generate-m2-reference.py m2-file
+where
+    m2-file -   the m2 file
+```
+
+Example:
+
+```python generate-m2-reference.py sample/QALB-Test2014.m2```
 
 ## Configuration
 In the configuration file ```config.json```, the user should specify the mode of the morphological analyser. The default value is ```analyser``` in which all the analyses are considered. The second option is 
