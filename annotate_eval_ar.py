@@ -28,8 +28,8 @@ if len(args) != 2:
     print_usage()
     sys.exit(-1)
 
-ref_path = args[0]
-sys_path = args[1]
+ref_path = args[1]
+sys_path = args[0]
 # process_align_annot_eval(ref_path, sys_path, False)
 # print(ref_path, sys_path)
 

@@ -60,7 +60,7 @@ OPTIONS
 Example:
 
 ```
-python annotate_eval_ar.py sample/QALB-Test2014.m2 sample/CLMB-1
+python annotate_eval_ar.py sample/CLMB-1 sample/QALB-Test2014.m2
 ```
 
 This generates:

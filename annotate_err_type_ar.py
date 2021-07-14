@@ -28,7 +28,7 @@ if len(args) != 2:
     print_usage()
     sys.exit(-1)
 
-ref_path = args[0]
-sys_path = args[1]
+ref_path = args[1]
+sys_path = args[0]
 
 annote_ref_sys(ref_path, sys_path)
