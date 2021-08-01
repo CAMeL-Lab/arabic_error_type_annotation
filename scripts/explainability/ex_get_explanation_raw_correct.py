@@ -110,6 +110,13 @@ def remove_tanween(word):
     return "".join(new_s)
 
 
+def is_on_error(raw, correct):
+    tanween_list = ["ً", "ٍ", "ٌ"]
+    if (raw[-1] in tanween_list and raw[:-1] == correct) or (correct[-1] in tanween_list and correct[:-1] == raw):
+        return True
+    return False
+
+
 def wa_part_semantic(path):
     l = [{'prc2': ('0', 'wa_part')}]
     if len(path[0][0]) + len(path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in l:
@@ -128,69 +135,53 @@ def explain_error(raw, correct):
         a = " ".join(a.split())
         b = " ".join(b.split())
 
-        if raw =="ولاكرامة":
-            print("")
-
         if raw == correct:
-            print("UNCHANGED")
+            # print("UNCHANGED")
             err_type_tag = "UC"
 
-            # return "UC"
         elif a == b:
             err_type_tag = ""
-            no_err_type = True
+
         elif a.replace(" ", "") == b or a.replace("#", "") == b:
             err_type_tag = "SP"
-            # return "SP"
+
         elif a == b.replace(" ", ""):
             err_type_tag = "MG"
-            # return "MG"
 
         elif len(a) > 15 or len(b) > 15:
             err_type_tag = "UNK"
-            # return "UNK"
 
         elif is_word_deleted(a, b):
-            print("WORD_DELETED")
+            # print("WORD_DELETED")
             err_type_tag = "XM"
-            # return "XM"
 
         elif is_word_added(a, b):
-            print("WORD_ADDED")
+            # print("WORD_ADDED")
             err_type_tag = "XT"
-            # return "XT"
 
         elif is_al_morph(a, b):
-            print("MORPH_ERROR")
+            # print("MORPH_ERROR")
             err_type_tag = "XF"
-            # return "XF"
-
 
         elif is_confused_alif_ya(a, b):
-            print("ORTH_ERROR")
+            # print("ORTH_ERROR")
             err_type_tag = "OA"
-            # return "OA"
 
         elif is_number_converted(a, b):
-            print("CONVERTED_NUMBER/ORTH")
+            # print("CONVERTED_NUMBER/ORTH")
             err_type_tag = "OR"
-            # return "OR"
 
         elif is_letters_swapped(a, b):
-            print("SWAPPED_LETTERS")
+            # print("SWAPPED_LETTERS")
             err_type_tag = "OC"
-            # return "OC"
 
-        elif remove_tanween(a) == remove_tanween(b):
+        elif is_on_error(a, b):
             err_type_tag = "ON"
-            print("ON")
-            # return "ON"
+            # print("ON")
 
         elif is_part_semantic(a, b) or (a in semantic_word_exception_list and b in semantic_word_exception_list):
-            print("SEMANTIC_ERROR")
-            print("SW")
+            # print("SEMANTIC_ERROR")
             err_type_tag = "SW"
-            # return "SW"
 
         else:
             errors = get_error_annotation_calimastar(a, b)
@@ -205,7 +196,6 @@ def explain_error(raw, correct):
                 path = get_explainable_path(errors)[0]
             if path_option == "optimised_unsup_path":
                 path = get_reranked_paths(errors)
-
 
             list_sf = [{'prc2': ('fa_conj', '0')}, {'prc2': ('0', 'wa_part')}, {'prc2': ('wa_part', '0')},
                        {'prc2': ('0', 'fa_conj')}, {'prc1': ('bi_part', 'li_prep')},
@@ -227,24 +217,21 @@ def explain_error(raw, correct):
                 path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in list_sf)) and not (
                     is_punct_exist(a) != is_punct_exist(b)):
 
-                print("SEMANTIC_ERROR")
+                # print("SEMANTIC_ERROR")
                 err_type_tag = semantic_error(a, path)
-                # return semantic_error(a, path)
 
             elif (len(path[0][0]) + len(
                     path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in list_mx):
-                print("WORD_DELETED")
+                # print("WORD_DELETED")
                 err_type_tag = "XM"
-                # return "XM"
 
             elif (len(path[0][0]) + len(
                     path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in list_xt):
-                print("WORD_ADDED")
+                # print("WORD_ADDED")
                 err_type_tag = "XT"
-                # return "XT"
 
             elif len(path[0][0]) == 0:
-                print("MORPH_ERROR")
+                # print("MORPH_ERROR")
                 is_xm_valid = False
 
                 for e in path[0][1]:
@@ -253,20 +240,16 @@ def explain_error(raw, correct):
                         break
                 if is_xm_valid:
                     err_type_tag = "XM" + "+" + "+".join(morph_error(all_paths, a, b))
-                    # return "XM" + "+" + "+".join(morph_error(all_paths, a, b))
                 else:
                     err_type_tag = "+".join(morph_error(all_paths, a, b))
-                    # return "+".join(morph_error(all_paths, a, b))
 
             elif len(path[0][1]) == 0:
-                print("ORTH_ERROR")
+                # print("ORTH_ERROR")
                 err_type_tag = "+".join(orth_error(a, b, path))
-                # return "+".join(orth_error(a, b, path))
 
             else:
-                print("MORPH_ERROR+ORTH_ERROR")
+                # print("MORPH_ERROR+ORTH_ERROR")
                 err_type_tag = "+".join(orth_error(a, b, path)) + "+" + "+".join(morph_error(all_paths, a, b))
-                # return "+".join(orth_error(a, b, path)) + "+" + "+".join(morph_error(all_paths, a, b))
 
         if get_punct_error(raw, correct) != "" and err_type_tag == "":
             err_type_tag = get_punct_error(raw, correct)
@@ -277,13 +260,11 @@ def explain_error(raw, correct):
         return err_type_tag
 
     except Exception as ex:
-        # print(ex)
 
-        print("UNKNOWN_ERROR_TYPE")
+        # print("UNKNOWN_ERROR_TYPE")
         explain_errors = get_explained_error_subclass(a, b)
         fo = codecs.open("../../fout2.basic", "r", "utf8")
         fo.close()
-        err_type_tag = "+".join(explain_errors)
         return "+".join(explain_errors)
 
     print(

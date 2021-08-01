@@ -172,11 +172,6 @@ def is_punct_added(word, correct_word):
             word == "" or str(word) == "nan" or str(word) == "Null"):
         return True
 
-    # if remove_punctuation(word)[1] == remove_punctuation(correct_word)[1] and remove_punctuation(correct_word)[
-    #     0] == True and remove_punctuation(word)[
-    #     0] == False:
-    #     return True
-
     n_l_punct_w = []
     n_l_punct_c = []
     l_punct_w = remove_punctuation(word)[2]

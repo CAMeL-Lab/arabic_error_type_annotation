@@ -69,7 +69,7 @@ def get_aligned_combinations(raw_toks, correct_w_possible_tokenizations):
         combinations = call_get_combinations(get_combinations, new_l)
         for c in combinations:
             list_combinations.append(align_single_instance(c))
-    print("combs", list_combinations)
+    # print("combs", list_combinations)
     return sorted(list_combinations, key=lambda element: (element[0], element[1]))
 
 
@@ -77,7 +77,7 @@ def get_atb_multi_word(corrected_multi_word):
     list_atb_toks = []
     for w in corrected_multi_word.split():
         list_atb_toks.append(get_all_atb_tok(w, "correct"))
-    print(list_atb_toks)
+    # print(list_atb_toks)
     return list_atb_toks
 
 
@@ -97,7 +97,7 @@ def sort_aligned_combinations(raw_word, corrected_multi_word):
     for idx in index_sort:
         sorted_d[i] = d[idx]
         i += 1
-    print(sorted_d)
+    # print(sorted_d)
     return sorted_d[0]
 
 
@@ -131,6 +131,7 @@ def get_explained_error(word, corrected_multi_word):
         f_new_l = ['XM']
 
     return list(set(f_new_l))
+
 
 # print(get_explained_error("فكانت", "فبعد أن كانت"))
 

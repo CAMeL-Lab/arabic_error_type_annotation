@@ -601,7 +601,7 @@ def explain_error(raw, correct):
         b = correct
 
         if a == b:
-            print("UNCHANGED")
+            #print("UNCHANGED")
             return "uc"
         elif a.replace(" ", "") == b or a.replace("#", "") == b:
             return "MG"
@@ -610,54 +610,54 @@ def explain_error(raw, correct):
             return "unk"
 
         elif is_punct_added(a, b):
-            print("PUNCTUATION_MISSING")
+            #print("PUNCTUATION_MISSING")
             return "PM"
 
         elif is_punct_deleted(a, b):
-            print("PUNCTUATION_UNNECESSARY")
+            #print("PUNCTUATION_UNNECESSARY")
             return "PT"
 
         elif punctuation_change(a, b):
-            print("PUNCTUATION_CHANGED")
+            #print("PUNCTUATION_CHANGED")
             return "PC"
 
         elif is_word_deleted(a, b):
-            print("WORD_DELETED")
+            #print("WORD_DELETED")
             return "XM"
 
         elif is_word_added(a, b):
-            print("WORD_ADDED")
+            #print("WORD_ADDED")
             return "XT"
 
         elif is_al_morph(a, b):
-            print("MORPH_ERROR")
+            #print("MORPH_ERROR")
             return "XF"
 
 
         elif is_confused_alif_ya(a, b):
-            print("ORTH_ERROR")
+            #print("ORTH_ERROR")
             return "OA"
 
 
         elif is_number_converted(a, b):
-            print("CONVERTED_NUMBER/ORTH")
+            #print("CONVERTED_NUMBER/ORTH")
             return "OR"
 
         elif is_letters_swapped(a, b):
-            print("SWAPPED_LETTERS")
+            #print("SWAPPED_LETTERS")
             return "OC"
 
         elif remove_tanween(a) == remove_tanween(b):
             subcat_tags["ON"] = 1
-            print("ON")
+            #print("ON")
             return "ON"
 
         elif (is_part_semantic(a, b) or (
                 remove_punctuation(a)[1] in semantic_word_exception_list and remove_punctuation(b)[
             1] in semantic_word_exception_list)) and not (
                 is_punct_exist(a) != is_punct_exist(b)):
-            print("SEMANTIC_ERROR")
-            print("SW")
+            #print("SEMANTIC_ERROR")
+            #print("SW")
             return "SW"
 
         elif (is_part_semantic(a, b) or (
@@ -717,29 +717,29 @@ def explain_error(raw, correct):
                 path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in list_sf)) and not (
                     is_punct_exist(a) != is_punct_exist(b)):
                 subcat_tags[semantic_error(a_m, path)] = 1
-                print("SEMANTIC_ERROR")
+                #print("SEMANTIC_ERROR")
                 return semantic_error(a_m, path)
 
             elif len(path[0][0]) + len(path[0][1]) > len(a_m) / 2 and (is_punct_exist(a) != is_punct_exist(b)):
-                print("SEMANTIC_ERROR+PUNCT_ERROR")
+                #print("SEMANTIC_ERROR+PUNCT_ERROR")
                 subcat_tags[semantic_error(a_m, path)] = 1
                 subcat_tags[punct_error(a, b)[1]] = 1
                 return semantic_error(a_m, path) + "+" + punct_error(a, b)[1]
 
             elif (len(path[0][0]) + len(
                     path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in list_mx):
-                print("WORD_DELETED")
+                #print("WORD_DELETED")
                 subcat_tags["XM"] = 1
                 return "XM"
 
             elif (len(path[0][0]) + len(
                     path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in list_xt):
-                print("WORD_ADDED")
+                #print("WORD_ADDED")
                 subcat_tags["XT"] = 1
                 return "XT"
 
             elif len(path[0][0]) == 0 and not (remove_punctuation(a)[2] != remove_punctuation(b)[2]):
-                print("MORPH_ERROR")
+                #print("MORPH_ERROR")
                 is_xm_valid = False
                 for sub_cat in morph_error(all_paths, a_m, b_m):
                     subcat_tags[sub_cat] = 1
@@ -768,7 +768,7 @@ def explain_error(raw, correct):
                     return "+".join(morph_error(all_paths, a_m, b_m))
 
             elif len(path[0][0]) == 0 and (remove_punctuation(a)[2] != remove_punctuation(b)[2]):
-                print("MORPH_ERROR+PUNCT_ERROR")
+                #print("MORPH_ERROR+PUNCT_ERROR")
                 for sub_cat in morph_error(all_paths, a_m, b_m):
                     subcat_tags[sub_cat] = 1
                 subcat_tags[punct_error(a, b)[1]] = 1
@@ -776,7 +776,7 @@ def explain_error(raw, correct):
                 return "+".join(morph_error(all_paths, a_m, b_m))
 
             elif len(path[0][1]) == 0 and not (remove_punctuation(a)[2] != remove_punctuation(b)[2]):
-                print("ORTH_ERROR")
+                #print("ORTH_ERROR")
                 for sub_cat in orth_error(a, b, path):
                     subcat_tags[sub_cat] = 1
                 err_types = ["0",
@@ -789,7 +789,7 @@ def explain_error(raw, correct):
                 return "+".join(orth_error(a, b, path))
 
             elif len(path[0][1]) == 0 and (remove_punctuation(a)[2] != remove_punctuation(b)[2]):
-                print("ORTH_ERROR+PUNCT_ERROR")
+                #print("ORTH_ERROR+PUNCT_ERROR")
                 for sub_cat in orth_error(a, b, path):
                     subcat_tags[sub_cat] = 1
                 subcat_tags[punct_error(a, b)[1]] = 1
@@ -797,7 +797,7 @@ def explain_error(raw, correct):
 
             elif len(path[0][1]) > 0 and len(path[0][0]) > 0 and (
                     remove_punctuation(a)[2] != remove_punctuation(b)[2]):
-                print("MORPH_ERROR+ORTH_ERROR+PUNCT_ERROR")
+                #print("MORPH_ERROR+ORTH_ERROR+PUNCT_ERROR")
                 for sub_cat in orth_error(a, b, path):
                     subcat_tags[sub_cat] = 1
                 for sub_cat in morph_error(all_paths, a_m, b_m):
@@ -812,7 +812,7 @@ def explain_error(raw, correct):
                              "0"]
                 return "+".join(orth_error(a, b, path)) + "+".join(morph_error(all_paths, a_m, b_m))
             else:
-                print("MORPH_ERROR+ORTH_ERROR")
+                #print("MORPH_ERROR+ORTH_ERROR")
                 for sub_cat in orth_error(a, b, path):
                     subcat_tags[sub_cat] = 1
                 for sub_cat in morph_error(all_paths, a_m, b_m):

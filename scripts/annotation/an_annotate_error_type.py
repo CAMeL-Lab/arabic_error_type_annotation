@@ -29,7 +29,8 @@ def annotate(aligned_file, annot_file_out):
                     fw.write("\t".join([raw_word, correct_word, "+".join(list(set(explain.split("+"))))]) + "\n")
                 except:
                     # print(raw_word, correct_word, "unk")
-                    fw.write("\t".join([raw_word, correct_word, "UNK"]) + "\n")
+                    fw.write("\t".join([raw_word, correct_word, "unk"]) + "\n")
             i += 1
     fw.close()
 
+# print(normalize_punct("، "))
