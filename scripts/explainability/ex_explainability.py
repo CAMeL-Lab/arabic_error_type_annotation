@@ -60,7 +60,7 @@ d_error = {}
 all_pairs = []
 
 
-def convert_subcat_dict_to_list(d, tag):
+def _convert_subcat_dict_to_list(d, tag):
     new_l_v = []
     new_l_k = []
     for k, v in d.items():
@@ -104,9 +104,9 @@ err_types_gold = ["UNCHANGED/Reference",
 fw_sep.write(
     "RAW_WORD" + "\t" + "CORRECT_WORD" + "\t" + "ALFAFI_ERROR_TYPE" + "\t" + "\t".join(
         err_types) + "\t" + "\t".join(
-        err_types_gold) + "\t" + "\t".join(convert_subcat_dict_to_list(subcat_tags_orig, "Predicted")[
+        err_types_gold) + "\t" + "\t".join(_convert_subcat_dict_to_list(subcat_tags_orig, "Predicted")[
                                                1]) + "\t" + "\t".join(
-        convert_subcat_dict_to_list(subcat_tags_orig, "Reference")[
+        _convert_subcat_dict_to_list(subcat_tags_orig, "Reference")[
             1]) + "\t" + "EDIT_TYPE" + "\t" + "ORTH_EDITS" + "\t" + "MORPH_EDITS" + "\n")
 
 
@@ -114,7 +114,7 @@ def get_shortest_path(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
-        ops_zize = get_score_orth(path[0]) + get_score_morph(path[1])
+        ops_zize = _get_score_orth(path[0]) + _get_score_morph(path[1])
         d[i] = (path, ops_zize)
         i = i + 1
     index_sort = sorted(d, key=lambda k: d[k][1])
@@ -132,21 +132,21 @@ def get_shortest_path(paths):
     return sorted_paths
 
 
-def get_score_orth(path):
+def _get_score_orth(path):
     i = 0
     for e in path:
         i += 1
     return i
 
 
-def get_score_morph(path):
+def _get_score_morph(path):
     i = 0
     for e in path:
         i += 1
     return i
 
 
-def get_sub_categories(err_faifi):
+def _get_sub_categories(err_faifi):
     subcat_tags = {"unchanged": 0,
                    "OH": 0,
                    "OT": 0,
@@ -182,7 +182,7 @@ def get_sub_categories(err_faifi):
     return subcat_tags
 
 
-def get_dominant_solution(paths):
+def _get_dominant_solution(paths):
     dominant = paths[0]
     for p in paths[1:]:
         if p[1] <= dominant[1] and p[2] >= dominant[2]:
@@ -206,7 +206,7 @@ def get_dominant_solution(paths):
 #     return avg
 
 
-def get_reranked_paths(paths):
+def _get_reranked_paths(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
@@ -218,7 +218,7 @@ def get_reranked_paths(paths):
     # for e in index_sort:
     #     avg = get_average_score(d[e])
     #     sorted_paths.append((d[e][0], d[e][1], avg))
-    dominant = get_dominant_solution(sorted_paths)
+    dominant = _get_dominant_solution(sorted_paths)
     return dominant
 
 
@@ -249,7 +249,7 @@ def get_edit_type(path):
     return ",".join(list(set(list_edits)))
 
 
-def map_score():
+def _map_score():
     d = {}
     mapped_err_type = []
     predicted_err_type = []
@@ -291,7 +291,7 @@ def list_string_to_int_list(l):
     return l
 
 
-def map_score_multi_label():
+def _map_score_multi_label():
     d = {}
     mapped_err_type = []
     predicted_err_type = []
@@ -307,7 +307,7 @@ def map_score_multi_label():
         for l in f:
             if i > 0:
                 mapped_err_type.append(
-                    list_string_to_int_list(convert_mapped_to_binary(d[l.split("\t")[2]].replace("\n", ""))))
+                    list_string_to_int_list(_convert_mapped_to_binary(d[l.split("\t")[2]].replace("\n", ""))))
                 predicted_err_type.append(list_string_to_int_list(",".join(l.split("\t")[3:10]).split(",")))
             i = i + 1
     mx = multilabel_confusion_matrix(mapped_err_type, predicted_err_type)
@@ -338,7 +338,7 @@ def map_score_multi_label():
     print("")
 
 
-def map_score_multi_label():
+def _map_score_multi_label():
     d = {}
     mapped_err_type = []
     predicted_err_type = []
@@ -354,7 +354,7 @@ def map_score_multi_label():
         for l in f:
             if i > 0:
                 mapped_err_type.append(
-                    list_string_to_int_list(convert_mapped_to_binary(d[l.split("\t")[2]].replace("\n", ""))))
+                    list_string_to_int_list(_convert_mapped_to_binary(d[l.split("\t")[2]].replace("\n", ""))))
                 predicted_err_type.append(list_string_to_int_list(",".join(l.split("\t")[3:10]).split(",")))
             i = i + 1
     mx = multilabel_confusion_matrix(mapped_err_type, predicted_err_type)
@@ -385,7 +385,7 @@ def map_score_multi_label():
     print("")
 
 
-def map_score_multi_label_subclasses():
+def _multi_label_subclasses():
     d = {}
     mapped_err_type = []
     predicted_err_type = []
@@ -429,7 +429,7 @@ def map_score_multi_label_subclasses():
     print("")
 
 
-def convert_mapped_to_binary(tag):
+def _convert_mapped_to_binary(tag):
     err_types = ["0",
                  "0",
                  "0",
@@ -492,14 +492,14 @@ def remove_tanween(word):
     return "".join(new_s)
 
 
-def wa_part_semantic(path):
+def _wa_part_semantic(path):
     l = [{'prc2': ('0', 'wa_part')}]
     if len(path[0][0]) + len(path[0][1]) == 1 and len(path[0][1]) == 1 and path[0][1][0] in l:
         return True
     return False
 
 
-def map_score_err_detection():
+def _map_score_err_detection():
     d = {}
     mapped_err_type = []
     predicted_err_type = []
@@ -682,7 +682,7 @@ def explain_error(raw, correct):
             if path_option == "explainable_path":
                 path = get_explainable_path(errors)[0]
             if path_option == "optimised_unsup_path":
-                path = get_reranked_paths(errors)
+                path = _get_reranked_paths(errors)
 
             for e in path[0][0]:
                 if e in d_error:

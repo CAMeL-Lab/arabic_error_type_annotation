@@ -1,7 +1,4 @@
-import codecs
-
 from scripts.annotation.an_combinations import get_error_annotation_calimastar
-from scripts.annotation.an_multi_word import get_explained_error_subclass
 from scripts.annotation.an_combinations import get_correction_paths
 from scripts.annotation.an_arabic_ops import is_word_added, \
     is_word_deleted, is_number_converted, is_letters_swapped, remove_punctuation, is_punct_exist, \
@@ -17,7 +14,7 @@ def get_shortest_path(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
-        ops_zize = get_score_orth(path[0]) + get_score_morph(path[1])
+        ops_zize = _get_score_orth(path[0]) + _get_score_morph(path[1])
         d[i] = (path, ops_zize)
         i = i + 1
     index_sort = sorted(d, key=lambda k: d[k][1])
@@ -35,21 +32,21 @@ def get_shortest_path(paths):
     return sorted_paths
 
 
-def get_score_orth(path):
+def _get_score_orth(path):
     i = 0
     for e in path:
         i += 1
     return i
 
 
-def get_score_morph(path):
+def _get_score_morph(path):
     i = 0
     for e in path:
         i += 1
     return i
 
 
-def get_dominant_solution(paths):
+def _get_dominant_solution(paths):
     dominant = paths[0]
     for p in paths[1:]:
         if p[1] <= dominant[1] and p[2] >= dominant[2]:
@@ -57,7 +54,7 @@ def get_dominant_solution(paths):
     return dominant
 
 
-def get_reranked_paths(paths):
+def _get_reranked_paths(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
@@ -69,11 +66,11 @@ def get_reranked_paths(paths):
     # for e in index_sort:
     #     avg = get_average_score(d[e])
     #     sorted_paths.append((d[e][0], d[e][1], avg))
-    dominant = get_dominant_solution(sorted_paths)
+    dominant = _get_dominant_solution(sorted_paths)
     return dominant
 
 
-def get_explainable_path(paths):
+def _get_explainable_path(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
@@ -164,9 +161,9 @@ def explain_error(raw, correct):
             else:
                 second_path = None
         if path_option == "explainable_path":
-            path = get_explainable_path(errors)[0]
+            path = _get_explainable_path(errors)[0]
         if path_option == "optimised_unsup_path":
-            path = get_reranked_paths(errors)
+            path = _get_reranked_paths(errors)
 
         list_sf = [{'prc2': ('fa_conj', '0')}, {'prc2': ('0', 'wa_part')}, {'prc2': ('wa_part', '0')},
                    {'prc2': ('0', 'fa_conj')}, {'prc1': ('bi_part', 'li_prep')},

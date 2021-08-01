@@ -6,14 +6,14 @@ from scripts.annotation.an_compare_morph import morph_error_type_calimastar
 from scripts.annotation.an_map_corr_tag import get_all_operations_labels
 
 
-def get_score(morph_changes):
+def _get_score(morph_changes):
     if len(morph_changes) == 0:
         return 1
     else:
         return 0.5
 
 
-def is_sublist_exist(full_list, l_target):
+def _is_sublist_exist(full_list, l_target):
     for l in full_list:
         if l == l_target:
             return True
@@ -28,7 +28,7 @@ def get_error_annotation(w, wcorrect):
         "spelling_": {
             "candidate": apply_edit(ed_comb, w, wcorrect), "operations": ed_comb,
             "operations_labels": get_all_operations_labels(ed_comb, w, wcorrect),
-            "score": get_score(morph_error_type(apply_edit(ed_comb, w, wcorrect), wcorrect)[1]),
+            "score": _get_score(morph_error_type(apply_edit(ed_comb, w, wcorrect), wcorrect)[1]),
         },
 
         "morph_error_type": morph_error_type(apply_edit(ed_comb, w, wcorrect), wcorrect)[0],
@@ -53,7 +53,7 @@ def get_error_annotation_calimastar(w, wcorrect):
         "spelling_": {
             "candidate": apply_edit(ed_comb, w, wcorrect), "operations": ed_comb,
             "operations_labels": get_all_operations_labels(ed_comb, w, wcorrect),
-            "score": get_score(morph_error_type_calimastar(apply_edit(ed_comb, w, wcorrect), wcorrect)[1]),
+            "score": _get_score(morph_error_type_calimastar(apply_edit(ed_comb, w, wcorrect), wcorrect)[1]),
         },
 
         "morph_error_type": morph_error_type_calimastar(apply_edit(ed_comb, w, wcorrect), wcorrect)[0],
@@ -67,12 +67,12 @@ def get_error_annotation_calimastar(w, wcorrect):
             for morph_sub_path in d["morph_features_change"]:
                 new_d = d.copy()
                 new_d["morph_features_change"] = morph_sub_path
-                if is_sublist_exist(c_final, new_d) == False:
+                if _is_sublist_exist(c_final, new_d) == False:
                     c_final.append(new_d)
         if d["morph_error_type"] == "SAME_WORD":
             new_d = d.copy()
             new_d["morph_features_change"] = []
-            if is_sublist_exist(c_final, new_d) == False:
+            if _is_sublist_exist(c_final, new_d) == False:
                 c_final.append(new_d)
     return c_final
 

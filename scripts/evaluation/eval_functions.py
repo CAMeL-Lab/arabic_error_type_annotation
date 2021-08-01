@@ -1,15 +1,11 @@
 import codecs, os
-import pandas as pd
 import json
-from scripts.utils.utils_functions import list_string_to_int_list, convert_mapped_to_binary
 
 from sklearn.metrics import f1_score, accuracy_score
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.metrics import classification_report
-from sklearn.metrics import multilabel_confusion_matrix
 
 
-def get_score_compare(reference, predicted):
+def _get_score_compare(reference, predicted):
     count_ones = 0
     for v in reference:
         if v == 1:
@@ -21,7 +17,7 @@ def get_score_compare(reference, predicted):
     return prc / count_ones
 
 
-def get_binary_form(err_types, dict_labels):
+def _get_binary_form(err_types, dict_labels):
     new_dict = dict(dict_labels)
     for e in err_types.split("+"):
         if e.replace("\n", "") in new_dict:
@@ -55,11 +51,11 @@ def eval_multi_label_subclasses(uc, extension):
 
     with codecs.open("./output/annot_input_ref.tsv", "r", "utf8") as f:
         for l in f:
-            mapped_err_type.append(get_binary_form(l.split("\t")[2], dict_))
+            mapped_err_type.append(_get_binary_form(l.split("\t")[2], dict_))
 
     with codecs.open("./output/annot_input_sys.tsv", "r", "utf8") as f:
         for l in f:
-            predicted_err_type.append(get_binary_form(l.split("\t")[2], dict_))
+            predicted_err_type.append(_get_binary_form(l.split("\t")[2], dict_))
 
     print("")
     # mx = multilabel_confusion_matrix(mapped_err_type, predicted_err_type)

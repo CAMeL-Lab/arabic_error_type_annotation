@@ -14,11 +14,11 @@ path_option = "shortest_path"  # shortest_path or explainable_path
 semantic_word_exception_list = ["لم", "لا", "ما", "من", "ماذا", "على", "إلى", "عن", "و", "أو", "لن", "لم", "له", "عليه"]
 
 
-def get_shortest_path(paths):
+def _get_shortest_path(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
-        ops_zize = get_score_orth(path[0]) + get_score_morph(path[1])
+        ops_zize = _get_score_orth(path[0]) + _get_score_morph(path[1])
         d[i] = (path, ops_zize)
         i = i + 1
     index_sort = sorted(d, key=lambda k: d[k][1])
@@ -36,21 +36,21 @@ def get_shortest_path(paths):
     return sorted_paths
 
 
-def get_score_orth(path):
+def _get_score_orth(path):
     i = 0
     for e in path:
         i += 1
     return i
 
 
-def get_score_morph(path):
+def _get_score_morph(path):
     i = 0
     for e in path:
         i += 1
     return i
 
 
-def get_dominant_solution(paths):
+def _get_dominant_solution(paths):
     dominant = paths[0]
     for p in paths[1:]:
         if p[1] <= dominant[1] and p[2] >= dominant[2]:
@@ -58,7 +58,7 @@ def get_dominant_solution(paths):
     return dominant
 
 
-def get_reranked_paths(paths):
+def _get_reranked_paths(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
@@ -70,11 +70,11 @@ def get_reranked_paths(paths):
     # for e in index_sort:
     #     avg = get_average_score(d[e])
     #     sorted_paths.append((d[e][0], d[e][1], avg))
-    dominant = get_dominant_solution(sorted_paths)
+    dominant = _get_dominant_solution(sorted_paths)
     return dominant
 
 
-def get_explainable_path(paths):
+def _get_explainable_path(paths):
     d = {}
     i = 0
     for path in get_correction_paths(paths):
@@ -88,7 +88,7 @@ def get_explainable_path(paths):
     return sorted_paths
 
 
-def get_edit_type(path):
+def _get_edit_type(path):
     list_edits = []
     for e in path:
         if "insert:" in e:
@@ -186,16 +186,16 @@ def explain_error(raw, correct):
         else:
             errors = get_error_annotation_calimastar(a, b)
             if path_option == "shortest_path":
-                all_paths = get_shortest_path(errors)
+                all_paths = _get_shortest_path(errors)
                 path = all_paths[0]
                 if len(all_paths) > 1:
                     second_path = all_paths[1]
                 else:
                     second_path = None
             if path_option == "explainable_path":
-                path = get_explainable_path(errors)[0]
+                path = _get_explainable_path(errors)[0]
             if path_option == "optimised_unsup_path":
-                path = get_reranked_paths(errors)
+                path = _get_reranked_paths(errors)
 
             list_sf = [{'prc2': ('fa_conj', '0')}, {'prc2': ('0', 'wa_part')}, {'prc2': ('wa_part', '0')},
                        {'prc2': ('0', 'fa_conj')}, {'prc1': ('bi_part', 'li_prep')},

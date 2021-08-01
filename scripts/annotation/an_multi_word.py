@@ -15,13 +15,13 @@ db = MorphologyDB.builtin_db()
 analyzer = Analyzer(db)
 
 
-def is_atb_tok_valid(original_word, atb_tok_list):
+def _is_atb_tok_valid(original_word, atb_tok_list):
     if original_word != atb_tok_list.replace("+", "").replace("_", ""):
         return False
     return True
 
 
-def get_all_atb_tok(word, word_type):
+def _get_all_atb_tok(word, word_type):
     analyses = analyzer.analyze(word)
     posible_atb_splits = []
     for an in analyses:
@@ -35,14 +35,14 @@ def get_all_atb_tok(word, word_type):
     return list(set(posible_atb_splits))
 
 
-def get_combinations(*args):
+def _get_combinations(*args):
     list_cmb = []
     for combination in itertools.product(*args):
         list_cmb.append(combination)
     return list_cmb
 
 
-def call_get_combinations(get_combinations, args):  # with star
+def _call_get_combinations(get_combinations, args):  # with star
     return get_combinations(*args)
 
 
@@ -50,7 +50,7 @@ def explain_multi_word_error():
     return ""
 
 
-def align_single_instance(instance):
+def _align_single_instance(instance):
     a = " ".join(instance[0].replace("+", "").split("_"))
     i = 0
     b = []
@@ -61,14 +61,14 @@ def align_single_instance(instance):
     return a, " ".join(b)
 
 
-def get_aligned_combinations(raw_toks, correct_w_possible_tokenizations):
+def _get_aligned_combinations(raw_toks, correct_w_possible_tokenizations):
     list_combinations = []
     for e in raw_toks:
         new_l = correct_w_possible_tokenizations[:]
         new_l.insert(0, [e])
-        combinations = call_get_combinations(get_combinations, new_l)
+        combinations = _call_get_combinations(_get_combinations, new_l)
         for c in combinations:
-            list_combinations.append(align_single_instance(c))
+            list_combinations.append(_align_single_instance(c))
     # print("combs", list_combinations)
     return sorted(list_combinations, key=lambda element: (element[0], element[1]))
 
@@ -76,13 +76,13 @@ def get_aligned_combinations(raw_toks, correct_w_possible_tokenizations):
 def get_atb_multi_word(corrected_multi_word):
     list_atb_toks = []
     for w in corrected_multi_word.split():
-        list_atb_toks.append(get_all_atb_tok(w, "correct"))
+        list_atb_toks.append(_get_all_atb_tok(w, "correct"))
     # print(list_atb_toks)
     return list_atb_toks
 
 
-def sort_aligned_combinations(raw_word, corrected_multi_word):
-    combos = get_aligned_combinations(raw_word, get_atb_multi_word(corrected_multi_word))
+def _sort_aligned_combinations(raw_word, corrected_multi_word):
+    combos = _get_aligned_combinations(raw_word, get_atb_multi_word(corrected_multi_word))
 
     d = {}
     i = 0
@@ -103,8 +103,8 @@ def sort_aligned_combinations(raw_word, corrected_multi_word):
 
 def get_explained_error(word, corrected_multi_word):
     try:
-        raw_word = get_all_atb_tok(word, "source")
-        cmbs_best = sort_aligned_combinations(raw_word, corrected_multi_word)
+        raw_word = _get_all_atb_tok(word, "source")
+        cmbs_best = _sort_aligned_combinations(raw_word, corrected_multi_word)
         alignments = align_api([cmbs_best[0][0]], [cmbs_best[0][1]])
         multi_word_explain = []
         i = 0
@@ -137,8 +137,8 @@ def get_explained_error(word, corrected_multi_word):
 
 def get_explained_error_subclass(word, corrected_multi_word):
     try:
-        raw_word = get_all_atb_tok(word, "source")
-        cmbs_best = sort_aligned_combinations(raw_word, corrected_multi_word)
+        raw_word = _get_all_atb_tok(word, "source")
+        cmbs_best = _sort_aligned_combinations(raw_word, corrected_multi_word)
         alignments = align_api([cmbs_best[0][0]], [cmbs_best[0][1]])
         multi_word_explain = []
         i = 0

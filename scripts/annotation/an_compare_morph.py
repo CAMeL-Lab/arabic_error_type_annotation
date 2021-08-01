@@ -54,18 +54,18 @@ def morph_error_type(word, correct_word):
     d_correct_source = disambig2[0].analyses[0].analysis['source']
 
     if d_word_lex == d_correct_word_lex and d_word_pos == d_correct_word_pos and d_correct_source == "lex" and d_word_source == "lex":
-        return ["LEMMA_MATCH", get_features_differences(d_word_analysis, d_correct_word_analysis)]
+        return ["LEMMA_MATCH", _get_features_differences(d_word_analysis, d_correct_word_analysis)]
     return ["LEMMA_MISMATCH", []]
 
 
-def reformat_disambig_analysis(scored_analyses):
+def _reformat_disambig_analysis(scored_analyses):
     an_list = []
     for an in scored_analyses:
         an_list.append(an.analysis)
     return an_list
 
 
-def has_analysis(word, correct_word):
+def _has_analysis(word, correct_word):
     global db
 
     # Create analyzer with no backoff
@@ -117,7 +117,7 @@ def morph_error_type_calimastar_analyser(word, correct_word):
         for analysis_cw in analyses_correct_word:
             if analysis_w["lex"] == analysis_cw["lex"] and analysis_w["pos"] == analysis_cw["pos"] and analysis_w[
                 "source"] == "lex" and analysis_cw["source"] == "lex":
-                list_morph_sub_paths.append(get_features_differences(analysis_w, analysis_cw))
+                list_morph_sub_paths.append(_get_features_differences(analysis_w, analysis_cw))
     if len(list_morph_sub_paths) > 0:
         return ["LEMMA_MATCH", list_morph_sub_paths]
     return ["LEMMA_MISMATCH", []]
@@ -145,13 +145,13 @@ def morph_error_type_calimastar_mle(word, correct_word):
     # To analyze a word, we can use the analyze() method
 
     analyses_word = mle.disambiguate(word)[0].analyses
-    analyses_word = reformat_disambig_analysis(analyses_word)
+    analyses_word = _reformat_disambig_analysis(analyses_word)
     analyses_word = expand_analysis_mod_all_list(analyses_word)
     analyses_word = expand_analysis_gen_all_list(analyses_word)
     # analyses_word = hack_pgn_all(analyses_word)
 
     analyses_correct_word = mle.disambiguate(correct_word)[0].analyses
-    analyses_correct_word = reformat_disambig_analysis(analyses_correct_word)
+    analyses_correct_word = _reformat_disambig_analysis(analyses_correct_word)
     analyses_correct_word = expand_analysis_mod_all_list(analyses_correct_word)
     analyses_correct_word = expand_analysis_gen_all_list(analyses_correct_word)
     # analyses_correct_word = hack_pgn_all(analyses_correct_word)
@@ -162,13 +162,13 @@ def morph_error_type_calimastar_mle(word, correct_word):
             # if d_word_lex == d_correct_word_lex and d_word_pos == d_correct_word_pos and d_correct_source == "lex" and d_word_source == "lex":
             if analysis_w["lex"] == analysis_cw["lex"] and analysis_w["pos"] == analysis_cw["pos"] and analysis_w[
                 "source"] == "lex" and analysis_cw["source"] == "lex":
-                list_morph_sub_paths.append(get_features_differences(analysis_w, analysis_cw))
+                list_morph_sub_paths.append(_get_features_differences(analysis_w, analysis_cw))
     if len(list_morph_sub_paths) > 0:
         return ["LEMMA_MATCH", list_morph_sub_paths]
     return ["LEMMA_MISMATCH", []]
 
 
-def expand_analysis_mod(analysis):
+def _expand_analysis_mod(analysis):
     exp_list = []
     valid = False
     for k, v in analysis.items():
@@ -194,7 +194,7 @@ def expand_analysis_mod(analysis):
     return exp_list
 
 
-def expand_analysis_gen(analysis):
+def _expand_analysis_gen(analysis):
     exp_list = []
     valid = False
     for k, v in analysis.items():
@@ -223,18 +223,18 @@ def expand_analysis_gen(analysis):
 def expand_analysis_mod_all_list(analyses):
     list_expan = []
     for an in analyses:
-        list_expan.extend(expand_analysis_mod(an))
+        list_expan.extend(_expand_analysis_mod(an))
     return list_expan
 
 
 def expand_analysis_gen_all_list(analyses):
     list_expan = []
     for an in analyses:
-        list_expan.extend(expand_analysis_gen(an))
+        list_expan.extend(_expand_analysis_gen(an))
     return list_expan
 
 
-def hack_pgn(analysis):
+def _hack_pgn(analysis):
     if analysis['per'] == '1' and analysis['gen'] == 'm' and analysis['num'] == 's':
         d = {}
         for k, v in analysis.items():
@@ -246,14 +246,14 @@ def hack_pgn(analysis):
     return [analysis]
 
 
-def hack_pgn_all(analyses):
+def _hack_pgn_all(analyses):
     pgn_new_list = []
     for an in analyses:
-        pgn_new_list.extend(hack_pgn(an))
+        pgn_new_list.extend(_hack_pgn(an))
     return pgn_new_list
 
 
-def get_features_differences(analysis1, analysis2):
+def _get_features_differences(analysis1, analysis2):
     target_features = ['num', 'gen', 'per', 'asp', 'vox', 'mod', 'stt', 'cas', 'enc0', 'prc0', 'prc1', 'prc2', 'prc3',
                        'pos', 'rat']
     diff_list = []
