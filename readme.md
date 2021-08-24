@@ -71,7 +71,7 @@ This generates:
 ## Utilities
 ### Generate source from m2 file
 ```
-Usage: generate-m2-source.py m2-file
+Usage: utilities/generate-m2-source.py m2-file
 where
     m2-file -   the m2 file
 ```
@@ -82,7 +82,7 @@ Example:
 
 ### Generate reference from m2 file
 ```
-Usage: generate-m2-reference.py m2-file
+Usage: utilities/generate-m2-reference.py m2-file
 where
     m2-file -   the m2 file
 ```
@@ -96,7 +96,7 @@ Example:
 
 This re_alignment tool realigns files from Ossama's basic aligner by shifting the word in null -> word pair to the word before or after according to minimum edit distance.  
 ```
-Usage: adjust_align_tool.py file_to_adjust_align
+Usage: utilities/adjust_align_tool.py file_to_adjust_align
 where
     file_to_adjust_align -   File to be realigned (should follow Ossama's basic alignement file format)
 ```
