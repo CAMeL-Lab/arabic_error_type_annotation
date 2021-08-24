@@ -60,7 +60,7 @@ def _reconstruct_raw_reference(list_indices_input_correct):
 
 def read_m2(ref_path):
     i = 0
-    fw_correct = codecs.open("correct.txt", "w", "utf8")
+    fw_correct = codecs.open("../correct.txt", "w", "utf8")
     # fw_raw = codecs.open("raw.txt", "w", "utf8")
 
     with codecs.open(ref_path, "r", "utf8") as f:
@@ -89,7 +89,7 @@ def read_m2(ref_path):
     # fw_raw.close()
     fw_correct.close()
     correct_sentences = ""
-    with codecs.open("correct.txt", "r", "utf8") as f:
+    with codecs.open("../correct.txt", "r", "utf8") as f:
         for l in f:
             correct_sentences = correct_sentences + l
     return correct_sentences
