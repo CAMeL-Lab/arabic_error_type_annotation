@@ -155,9 +155,10 @@ In the configuration file ```config.json```, the user should specify the mode of
 | **Split**         | SP        | Words are split                                     | المحا دثات ← المحادثات     | AlmHA dvAt → AlmHAdvAt     | 
 
 ## License
-This tool is available under the MIT license. See the [LICENSE file] for more info.
+This tool is available under the MIT license. See the [LICENSE file](https://github.com/CAMeL-Lab/arabic_error_type_annotation/blob/main/LICENSE) for more info.
 
 ## Contributors
-
+* [Riadh Belkebir](https://github.com/riadhb88)
+* [Nizar Habash](https://github.com/nizarhabash1)
 
 
