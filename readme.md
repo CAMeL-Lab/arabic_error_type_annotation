@@ -103,7 +103,7 @@ where
 
 Example:
 
-```python utilities/generate-m2-source.py sample/QALB-Test2014.m2  > sample/QALB-Test2014.source.sent```
+```python utilities/adjust_align_tool.py sample/align.basic  > sample/align.adjust```
 
 ## Configuration
 In the configuration file ```config.json```, the user should specify the mode of the morphological analyser. The default value is ```analyser``` in which all the analyses are considered. The second option is 
