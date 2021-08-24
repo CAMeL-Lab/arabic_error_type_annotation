@@ -1,1 +1,4 @@
 venv
+scripts/.DS_Store
+alignment/.DS_Store
+annotation/.DS_Store
