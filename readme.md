@@ -98,7 +98,7 @@ This re_alignment tool realigns files from Ossama's basic aligner by shifting th
 ```
 Usage: adjust_align_tool.py file_to_adjust_align
 where
-    file_to_adjust_align -   File to be realigned
+    file_to_adjust_align -   File to be realigned (should follow Ossama's basic alignement file format)
 ```
 
 Example:
