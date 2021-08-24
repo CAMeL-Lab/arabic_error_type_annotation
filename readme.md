@@ -155,9 +155,9 @@ In the configuration file ```config.json```, the user should specify the mode of
 | **Split**         | SP        | Words are split                                     | المحا دثات ← المحادثات     | AlmHA dvAt → AlmHAdvAt     | 
 
 ## License
-
-## Contribute
+This tool is available under the MIT license. See the [LICENSE file] for more info.
 
 ## Contributors
+
 
 
