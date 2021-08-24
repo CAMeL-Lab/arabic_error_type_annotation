@@ -2,3 +2,8 @@ venv
 scripts/.DS_Store
 alignment/.DS_Store
 annotation/.DS_Store
+alignment/__pycache__
+annotation/__pycache__
+evaluation/__pycache__
+explainability/__pycache__
+utils/__pycache__
