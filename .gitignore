@@ -1,4 +1,5 @@
 venv
+aligner/.DS_Store
 scripts/.DS_Store
 alignment/.DS_Store
 annotation/.DS_Store
