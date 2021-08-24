@@ -68,6 +68,7 @@ This generates:
 2. ```annot_input_sys.tsv``` file in the ```output``` folder that contains the error types annotation between the input and the system.
 3.  ```subclasses_results_CLMB-1.tsv``` file in the ```results``` folder. This file contains the results of the evaluation of the system's output against the reference.
 
+## Utilities
 ### Generate source from m2 file
 ```
 Usage: generate-m2-source.py m2-file
@@ -89,6 +90,20 @@ where
 Example:
 
 ```python utilities/generate-m2-reference.py sample/QALB-Test2014.m2 > sample/QALB-Test2014.reference.cor```
+
+
+### Adjust the alignment
+
+This re_alignment tool realigns files from Ossama's basic aligner by shifting the null -> word to the word before or after according to minimum edit distance.  
+```
+Usage: adjust_align_tool.py file_to_adjust_align
+where
+    file_to_adjust_align -   File to be realigned
+```
+
+Example:
+
+```python utilities/generate-m2-source.py sample/QALB-Test2014.m2  > sample/QALB-Test2014.source.sent```
 
 ## Configuration
 In the configuration file ```config.json```, the user should specify the mode of the morphological analyser. The default value is ```analyser``` in which all the analyses are considered. The second option is 
