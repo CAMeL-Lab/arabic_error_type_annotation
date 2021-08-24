@@ -94,7 +94,7 @@ Example:
 
 ### Adjust the alignment
 
-This re_alignment tool realigns files from Ossama's basic aligner by shifting the null -> word to the word before or after according to minimum edit distance.  
+This re_alignment tool realigns files from Ossama's basic aligner by shifting the word in null -> word pair to the word before or after according to minimum edit distance.  
 ```
 Usage: adjust_align_tool.py file_to_adjust_align
 where
