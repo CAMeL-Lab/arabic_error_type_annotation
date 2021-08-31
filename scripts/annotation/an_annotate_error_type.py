@@ -17,6 +17,10 @@ def annotate(aligned_file, annot_file_out):
     fw = codecs.open(annot_file_out, "w", "utf8")
     with codecs.open(aligned_file, "r", "utf8") as f:
         for l in f:
+            if l == "\n":
+                fw.write("\n")
+                lines.append("\n")
+                continue
             if i > 0:
                 raw_word = l.split("\t")[0]
                 raw_word = raw_word.replace("\r", "")

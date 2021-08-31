@@ -5,6 +5,8 @@ import numpy as np
 dirname = os.path.dirname(__file__)
 
 input_path = os.path.join(dirname, "../../input/raw_qalb_test.txt")
+
+
 # ref_path = os.path.join(dirname, "../../qalb_test/QALB-Test2014.m2")
 # out_align_input_ref = os.path.join(dirname, "../../output/align_input_ref.tsv")
 
@@ -117,6 +119,18 @@ def _reconstruct_raw_reference(list_indices_input_correct):
         new_sentence_raw.append(raw_input)
         new_sentence_reference.append(e[3])
     return " ".join(new_sentence_raw), " ".join(new_sentence_reference)
+
+
+def split_alignments_by_sentence(alignments):
+    size = len(alignments)
+    idx_list = [idx + 1 for idx, val in
+                enumerate(alignments) if val == "\n"]
+
+    res = [alignments[i: j] for i, j in
+           zip([0] + idx_list, idx_list +
+               ([size] if idx_list[-1] != size else []))]
+
+    return res
 
 
 def align_input_reference(ref_path, out_path):

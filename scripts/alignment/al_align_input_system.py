@@ -47,16 +47,37 @@ def align_ref_system_basic(f_system_path, f_ref_path, out_path):
             system_lines.append(" ".join(l.split()[1:]))
 
     alignments = align_api(system_lines, ref_lines)
-    alignments = _prepare_alignments(alignments)
-    alignments = adjust_null_to_token(alignments)
+    # print(len(alignments.split("\n\n")))
+    alignments_sent_by_sent = split_alignments_by_sentence(alignments)
+
+    alignments = []
+    for sub_al in alignments_sent_by_sent:
+        sub_al = _prepare_alignments(sub_al)
+        sub_al = adjust_null_to_token(sub_al)
+        alignments.append(sub_al)
+
     fw = codecs.open(out_path, "w", "utf8")
     fw.write("source" + "\t" + "reference" + "\n")
 
-    for al in alignments:
-        fw.write("\t".join([al[0].replace("#", " "), al[1].replace("#", " ")]) + "\n")
+    for sub_al in alignments:
+        for al in sub_al:
+            fw.write("\t".join([al[0].replace("#", " "), al[1].replace("#", " ")]) + "\n")
+        fw.write("\n")
 
 
 # align_input_system(f_input_path, f_system_path)
+
+def split_alignments_by_sentence(alignments):
+    size = len(alignments)
+    idx_list = [idx + 1 for idx, val in
+                enumerate(alignments) if val == "\n"]
+
+    res = [alignments[i: j] for i, j in
+           zip([0] + idx_list, idx_list +
+               ([size] if idx_list[-1] != size else []))]
+
+    return res
+
 
 def _get_consecutive_ranges(list):
     sequences = np.split(list, np.array(np.where(np.diff(list) > 1)[0]) + 1)
