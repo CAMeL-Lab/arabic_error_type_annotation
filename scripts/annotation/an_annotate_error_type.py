@@ -13,6 +13,7 @@ def _normalize_punct(s):
 
 def annotate(aligned_file, annot_file_out):
     i = 0
+    lines = []
     fw = codecs.open(annot_file_out, "w", "utf8")
     with codecs.open(aligned_file, "r", "utf8") as f:
         for l in f:
@@ -25,12 +26,13 @@ def annotate(aligned_file, annot_file_out):
                     correct_word = correct_word[1:]
                 try:
                     explain = explain_error(raw_word, correct_word)
-                    # print(raw_word, correct_word, "+".join(list(set(explain.split("+")))))
-                    fw.write("\t".join([raw_word, correct_word, "+".join(list(set(explain.split("+"))))]) + "\n")
+                    line = "\t".join([raw_word, correct_word, "+".join(list(set(explain.split("+"))))]) + "\n"
+                    lines.append(line)
+                    fw.write(line)
                 except:
-                    # print(raw_word, correct_word, "unk")
-                    fw.write("\t".join([raw_word, correct_word, "unk"]) + "\n")
+                    line = "\t".join([raw_word, correct_word, "unk"]) + "\n"
+                    lines.append(line)
+                    fw.write(line)
             i += 1
     fw.close()
-
-# print(normalize_punct("، "))
+    return "".join(lines)

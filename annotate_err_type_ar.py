@@ -31,4 +31,4 @@ if len(args) != 2:
 ref_path = args[1]
 sys_path = args[0]
 
-annote_ref_sys(ref_path, sys_path)
+sys.stdout.write(annote_ref_sys(ref_path, sys_path))

@@ -13,5 +13,6 @@ def annote_ref_sys(ref_path, sys_path):
     align_ref_system_basic(sys_path, ref_path, out_align_sys_ref)
 
     # Annotation process
-    annotate(out_align_sys_ref, out_annot_sys_ref)
+    annotation_lines = annotate(out_align_sys_ref, out_annot_sys_ref)
 
+    return annotation_lines
