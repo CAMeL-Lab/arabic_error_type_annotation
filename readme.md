@@ -19,7 +19,7 @@ where
     system - the system output
     reference - the reference file
 OPTIONS
-    -o output file location; default is standard output.
+    --output output file location; default is standard output.
     
 ```
 

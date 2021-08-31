@@ -1,4 +1,5 @@
 import sys
+import codecs
 from getopt import getopt
 from scripts.annotation.an_annote_sys_ref import annote_ref_sys
 
@@ -9,21 +10,26 @@ def print_usage():
     print("  reference          -   the reference file")
     print("  target          -   the system's output")
     print("OPTIONS")
-    # print("  -v    --verbose                   	-  print verbose output")
-    # print("        --very_verbose              	-  print lots of verbose output")
-    # print(
-    #     "        --max_unchanged_words N     	-  Maximum unchanged words when extraction edit. Default 0.")
-    # print(
-    #     "        --ignore_whitespace_casing  	-  Ignore edits that only affect whitespace and caseing. Default no.")
-    # print(
-    #     "        --output  	                  -  The output file. Otherwise, it prints to standard output ")
+
+    print(
+        "        --output  	                  -  The output file. Otherwise, it prints to standard output ")
 
 
 opts, args = getopt(sys.argv[1:], "v",
-                    ["max_unchanged_words=", "beta=", "verbose", "ignore_whitespace_casing", "very_verbose", "output="])
+                    ["output="])
+
+output = None
+
+# print (opts)
+for o, v in opts:
+    if o == '--output':
+        output = v
+    else:
+        print(sys.stderr, "Unknown option :", o)
+        print_usage()
+        sys.exit(-1)
 
 # starting point
-
 if len(args) != 2:
     print_usage()
     sys.exit(-1)
@@ -31,4 +37,11 @@ if len(args) != 2:
 ref_path = args[1]
 sys_path = args[0]
 
-sys.stdout.write(annote_ref_sys(ref_path, sys_path))
+lines = annote_ref_sys(ref_path, sys_path)
+
+if output:
+    write_output = codecs.open(output, 'w', "utf8")
+    write_output.write(lines)
+    write_output.close()
+else:
+    sys.stdout.write(lines)
