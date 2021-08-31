@@ -60,14 +60,14 @@ def _reconstruct_raw_reference(list_indices_input_correct):
 
 def read_m2(ref_path):
     i = 0
-    fw_raw = codecs.open("../raw.txt", "w", "utf8")
+    raw_sentences = ""
 
     with codecs.open(ref_path, "r", "utf8") as f:
         for l in f:
             if l == "\n":
                 a = _generate_align_pairs(list_indices_input_correct, current_line)
                 raw, ref = _reconstruct_raw_reference(a)
-                fw_raw.write(" ".join(raw.split()) + "\n")
+                raw_sentences = raw_sentences + " ".join(raw.split()) + "\n"
                 continue
             if l[0] == "S":
                 current_line = l
@@ -83,12 +83,6 @@ def read_m2(ref_path):
                     i += 1
                 except:
                     print("error")
-
-    fw_raw.close()
-    raw_sentences = ""
-    with codecs.open("../raw.txt", "r", "utf8") as f:
-        for l in f:
-            raw_sentences = raw_sentences + l
     return raw_sentences
 
 
@@ -96,18 +90,9 @@ def print_usage():
     print("Usage: generate-m2-source.py m2-file")
     print("where")
     print("  m2-file          -   the m2 file")
-    # print("  -v    --verbose                   	-  print verbose output")
-    # print("        --very_verbose              	-  print lots of verbose output")
-    # print(
-    #     "        --max_unchanged_words N     	-  Maximum unchanged words when extraction edit. Default 0.")
-    # print(
-    #     "        --ignore_whitespace_casing  	-  Ignore edits that only affect whitespace and caseing. Default no.")
-    # print(
-    #     "        --output  	                  -  The output file. Otherwise, it prints to standard output ")
 
 
-opts, args = getopt(sys.argv[1:], "v",
-                    ["max_unchanged_words=", "beta=", "verbose", "ignore_whitespace_casing", "very_verbose", "output="])
+opts, args = getopt(sys.argv[1:], "v")
 
 # starting point
 
