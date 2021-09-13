@@ -1,7 +1,7 @@
 # Arabic Error Type Annotation
 
 ## Description
-The Arabic Error Type Annotation tool aims to annotate Arabic error types following the [ALC](https://www.arabiclearnercorpus.com/) tagset annotation.
+The Arabic Error Type Annotation tool (ARETA) aims to annotate Arabic error types following the [ALC](https://www.arabiclearnercorpus.com/) tagset annotation.
 ## Installation
 You will need Python 3.6 and above (64-bit).
 
