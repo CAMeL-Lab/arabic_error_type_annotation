@@ -1,8 +1,10 @@
 import codecs, os
 import json
 
-from sklearn.metrics import f1_score, accuracy_score
 from sklearn.metrics import classification_report
+import warnings
+
+warnings.filterwarnings('ignore')
 
 
 def _get_score_compare(reference, predicted):
@@ -22,11 +24,6 @@ def _get_binary_form(err_types, dict_labels):
     for e in err_types.split("+"):
         if e.replace("\n", "") in new_dict:
             new_dict[e.replace("\n", "")] = 1
-        # else:
-        #     if e.replace("\n", "") != "UC":
-        #         # print(e)
-        #         print("")
-        #     # new_dict["OR"] = 1
 
     return list(new_dict.values())
 
@@ -36,7 +33,6 @@ def eval_multi_label_subclasses(uc, extension):
     predicted_err_type = []
 
     dirname = os.path.dirname(__file__)
-
     conf_path = os.path.join(dirname, "../utils/config.json")
 
     config_file = open(conf_path)
@@ -57,18 +53,7 @@ def eval_multi_label_subclasses(uc, extension):
         for l in f:
             predicted_err_type.append(_get_binary_form(l.split("\t")[2], dict_))
 
-    print("")
-    # mx = multilabel_confusion_matrix(mapped_err_type, predicted_err_type)
-    f1_macro = f1_score(mapped_err_type, predicted_err_type, average='macro')
-    f1_micro = f1_score(mapped_err_type, predicted_err_type, average='micro')
-    acc_score = accuracy_score(mapped_err_type, predicted_err_type)
-
-    # print(f1_macro)
-    # print(f1_micro)
-    # print(acc_score)
-
     results = classification_report(mapped_err_type, predicted_err_type, output_dict=True)
-    # print(results)
     fw = codecs.open("results/subclasses_results_" + str(extension) + ".tsv", "w", "utf8")
     fw.write("\t".join(["CLASS", "PRECISION", "RECALL", "F1-Score", "SUPPORT"]) + "\n")
     i = 0
@@ -86,8 +71,7 @@ def eval_multi_label_subclasses(uc, extension):
                 new_sec = True
             if line[0] != "samples avg":
                 fw.write("\t".join(line) + "\n")
-        print("\t".join(line))
+        # print("\t".join(line))
         i += 1
-    # prc_score = partial_credit_score_qalb(uc)
-    # fw.write("\t".join(["PRC Score", str(prc_score)]) + "\n")
     fw.close()
+    print("Results saved to: " + "results/subclasses_results_" + str(extension))

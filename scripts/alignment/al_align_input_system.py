@@ -4,10 +4,6 @@ import codecs, os
 import numpy as np
 
 
-# f_input_path = "input/raw_qalb_test.txt"
-# f_system_path = "qalb_test/systems/CLMB/CLMB-1"
-#
-
 def _prepare_alignments(alignments):
     new_alignments = []
     for al in alignments:
@@ -47,7 +43,6 @@ def align_ref_system_basic(f_system_path, f_ref_path, out_path):
             system_lines.append(" ".join(l.split()[1:]))
 
     alignments = align_api(system_lines, ref_lines)
-    # print(len(alignments.split("\n\n")))
     alignments_sent_by_sent = split_alignments_by_sentence(alignments)
 
     alignments = []
@@ -64,8 +59,6 @@ def align_ref_system_basic(f_system_path, f_ref_path, out_path):
             fw.write("\t".join([al[0].replace("#", " "), al[1].replace("#", " ")]) + "\n")
         fw.write("\n")
 
-
-# align_input_system(f_input_path, f_system_path)
 
 def split_alignments_by_sentence(alignments):
     size = len(alignments)
@@ -107,10 +100,7 @@ def adjust_null_to_token(alignments):
             al = alignments[rg[0]:rg[1] + 1]
             new_al = list(zip(*al))
             compressed_elt = " ".join(new_al[1])
-            # alignments[rg[0] - 1][1] = alignments[rg[0] - 1][1] + compressed_elt
-
             try:
-
                 up_pair = (alignments[rg[0] - 1][0], alignments[rg[0] - 1][1] + " " + compressed_elt)
                 down_pair = (alignments[rg[1] + 1][0], compressed_elt + " " + alignments[rg[1] + 1][1])
 

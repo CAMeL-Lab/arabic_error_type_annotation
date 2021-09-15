@@ -44,8 +44,10 @@ def get_error_annotation(w, wcorrect):
 
 
 def get_error_annotation_calimastar(w, wcorrect):
-    w = w.replace(" ", "")
-    wcorrect = wcorrect.replace(" ", "")
+    if w.startswith(" ") or w.endswith(" "):
+        w = w.replace(" ", "")
+    if wcorrect.startswith(" ") or wcorrect.endswith(" "):
+        wcorrect = wcorrect.replace(" ", "")
     input = editops(w, wcorrect)
     edit_combinations = sum([list(map(list, combinations(input, i))) for i in range(len(input) + 1)], [])
 
@@ -85,4 +87,3 @@ def get_correction_paths(err_tags):
         l.append(tag["morph_features_change"])
         corr_paths.append(l)
     return corr_paths
-

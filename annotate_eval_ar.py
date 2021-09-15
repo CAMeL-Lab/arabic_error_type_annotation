@@ -19,23 +19,16 @@ def print_usage():
     #     "        --output  	                  -  The output file. Otherwise, it prints to standard output ")
 
 
-opts, args = getopt(sys.argv[1:], "v",
-                    ["max_unchanged_words=", "beta=", "verbose", "ignore_whitespace_casing", "very_verbose", "output="])
+opts, args = getopt(sys.argv[1:], "v", )
 
 # starting point
-
 if len(args) != 2:
     print_usage()
     sys.exit(-1)
 
 ref_path = args[1]
 sys_path = args[0]
-# process_align_annot_eval(ref_path, sys_path, False)
-# print(ref_path, sys_path)
 
-# ref_path = "sample/sample.m2"
-# sys_path = "sample/sample_sys"
-print("")
 
 
 process_align_annot_eval(ref_path, sys_path, False)

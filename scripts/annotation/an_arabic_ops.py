@@ -108,11 +108,11 @@ def is_part_semantic(s1, s2):
     l2 = s2.split()
     if len(l1) > 1:
         for e in l1:
-            if e in part_list:
+            if e in part_list and s1.replace(e, "") == s2:
                 return True
     if len(l2) > 1:
         for e in l2:
-            if e in part_list:
+            if e in part_list and s2.replace(e, "") == s1:
                 return True
     return False
 
@@ -229,6 +229,3 @@ def is_word_split(word, correct_word):
             "".join(word.split()) == "".join(correct_word.split())):
         return True
     return False
-
-
-

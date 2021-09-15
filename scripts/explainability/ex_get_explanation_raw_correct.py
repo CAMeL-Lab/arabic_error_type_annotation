@@ -1,4 +1,5 @@
 import codecs
+import os
 
 from scripts.annotation.an_combinations import get_error_annotation_calimastar
 from scripts.annotation.an_multi_word import get_explained_error_subclass
@@ -263,7 +264,9 @@ def explain_error(raw, correct):
 
         # print("UNKNOWN_ERROR_TYPE")
         explain_errors = get_explained_error_subclass(a, b)
-        fo = codecs.open("../../fout2.basic", "r", "utf8")
+        dirname = os.path.dirname(__file__)
+        f_path = os.path.join(dirname, "../../fout2.basic")
+        fo = codecs.open(f_path, "r", "utf8")
         fo.close()
         return "+".join(explain_errors)
 

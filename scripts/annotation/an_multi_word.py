@@ -2,6 +2,7 @@ from camel_tools.morphology.database import MorphologyDB
 from camel_tools.morphology.analyzer import Analyzer
 from camel_tools.utils.dediac import dediac_ar
 from aligner.align_text_api import align_api
+from scripts.alignment.al_align_input_system import adjust_null_to_token
 from scripts.explainability.ex_explainability import explain_error
 import nltk
 import itertools
@@ -21,6 +22,29 @@ def _is_atb_tok_valid(original_word, atb_tok_list):
     return True
 
 
+def _restore_word(atbtok, source_word):
+    try:
+        position_plus = atbtok.find("+")
+        position_underscore = atbtok.find("_")
+        position = min(position_plus, position_underscore)
+        if dediac_ar(atbtok.replace("+", "").replace("_", "")) != dediac_ar(source_word):
+            i = 0
+            new_s = []
+            for c in dediac_ar(source_word):
+                if c == dediac_ar(atbtok.replace("+", "").replace("_", ""))[i]:
+                    new_s.append(c)
+                else:
+                    new_s.append(dediac_ar(source_word)[i])
+                i += 1
+            new_s = "".join(new_s)
+            new_s = new_s[:position] + "_+" + new_s[position:]
+            return new_s
+        else:
+            return atbtok
+    except:
+        return atbtok
+
+
 def _get_all_atb_tok(word, word_type):
     analyses = analyzer.analyze(word)
     posible_atb_splits = []
@@ -30,7 +54,7 @@ def _get_all_atb_tok(word, word_type):
             if an['source'] == 'lex':
                 posible_atb_splits.append(dediac_ar(an['atbtok']))
         else:
-            posible_atb_splits.append(dediac_ar(an['atbtok']))
+            posible_atb_splits.append(_restore_word(dediac_ar(an['atbtok']), word))
 
     return list(set(posible_atb_splits))
 
@@ -133,21 +157,44 @@ def get_explained_error(word, corrected_multi_word):
     return list(set(f_new_l))
 
 
-# print(get_explained_error("فكانت", "فبعد أن كانت"))
+def _prepare_alignments(alignments):
+    new_alignments = []
+    for al in alignments:
+        if al != "\n":
+            new_alignments.append((al.split("\t")[0], al.split("\t")[2]))
+    return new_alignments
+
+
+def check_alignment(alignments):
+    for al in alignments:
+        if len(al[0].split()) == 1 and len(al[1].split()) > 1:
+            return False
+    return True
+
 
 def get_explained_error_subclass(word, corrected_multi_word):
     try:
         raw_word = _get_all_atb_tok(word, "source")
         cmbs_best = _sort_aligned_combinations(raw_word, corrected_multi_word)
-        alignments = align_api([cmbs_best[0][0]], [cmbs_best[0][1]])
+        alignments_old = align_api([cmbs_best[0][0]], [cmbs_best[0][1]])
+
+        alignments_new = _prepare_alignments(alignments_old)
+        alignments_new = adjust_null_to_token(alignments_new)
+
+        if check_alignment(alignments_new):
+            alignments = alignments_new
+        else:
+            alignments = alignments_old
+            alignments = _prepare_alignments(alignments)
+
         multi_word_explain = []
         i = 0
         list_err_types = []
         for al in alignments:
             pair_explain = {}
-            if len(al.split("\t")) == 4:
-                pair_words = al.split("\t")[0], al.split("\t")[2]
-                exp_err = explain_error(al.split("\t")[0], al.split("\t")[2])
+            if len(al) == 2:
+                pair_words = al[0], al[1]
+                exp_err = explain_error(al[0], al[1])
                 pair_explain["raw_correct_pair"] = (pair_words)
                 pair_explain["error_type"] = exp_err
                 list_err_types.append(exp_err)
@@ -165,5 +212,3 @@ def get_explained_error_subclass(word, corrected_multi_word):
         f_new_l = ['XM']
 
     return list(set(f_new_l))
-
-# print(get_explained_error("فكانت", "فبعد أن كانت"))

@@ -73,7 +73,7 @@ path_option = "shortest_path"  # shortest_path or explainable_path
 # path_option = "optimised_unsup_path"  # shortest_path or explainable_path
 
 # fw = codecs.open("error_types_paths_faifi_new_manual.tsv", "w", "utf8")
-fw_sep = codecs.open("../../faifi_separate_classes_new_manual.tsv", "w", "utf8")
+#fw_sep = codecs.open("../../faifi_separate_classes_new_manual.tsv", "w", "utf8")
 
 # d_map = {}
 # dirname = os.path.dirname(__file__)
@@ -101,13 +101,13 @@ err_types_gold = ["UNCHANGED/Reference",
                   "WORD_ADDED/Reference",
                   "WORD_DELETED/Reference"]
 
-fw_sep.write(
-    "RAW_WORD" + "\t" + "CORRECT_WORD" + "\t" + "ALFAFI_ERROR_TYPE" + "\t" + "\t".join(
-        err_types) + "\t" + "\t".join(
-        err_types_gold) + "\t" + "\t".join(_convert_subcat_dict_to_list(subcat_tags_orig, "Predicted")[
-                                               1]) + "\t" + "\t".join(
-        _convert_subcat_dict_to_list(subcat_tags_orig, "Reference")[
-            1]) + "\t" + "EDIT_TYPE" + "\t" + "ORTH_EDITS" + "\t" + "MORPH_EDITS" + "\n")
+# fw_sep.write(
+#     "RAW_WORD" + "\t" + "CORRECT_WORD" + "\t" + "ALFAFI_ERROR_TYPE" + "\t" + "\t".join(
+#         err_types) + "\t" + "\t".join(
+#         err_types_gold) + "\t" + "\t".join(_convert_subcat_dict_to_list(subcat_tags_orig, "Predicted")[
+#                                                1]) + "\t" + "\t".join(
+#         _convert_subcat_dict_to_list(subcat_tags_orig, "Reference")[
+#             1]) + "\t" + "EDIT_TYPE" + "\t" + "ORTH_EDITS" + "\t" + "MORPH_EDITS" + "\n")
 
 
 def get_shortest_path(paths):

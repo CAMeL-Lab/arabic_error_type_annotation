@@ -17,14 +17,17 @@ def process_align_annot_eval(ref_path, sys_path, uc):
     out_annot_input_sys = "output/annot_input_sys.tsv"
 
     # Alignment process
+    print("Alignment in progress..")
     align_input_reference(ref_path, out_align_input_ref)
     align_input_system(sys_path, out_align_input_sys)
 
     # Annotation process
+    print("Annotation in progress..")
     annotate(out_align_input_ref, out_annot_input_ref)
     annotate(out_align_input_sys, out_annot_input_sys)
 
     # Evaluation process
+    print("Evaluation in progress..")
     eval_multi_label_subclasses(uc, exp_name)
 
 

@@ -7,10 +7,6 @@ dirname = os.path.dirname(__file__)
 input_path = os.path.join(dirname, "../../input/raw_qalb_test.txt")
 
 
-# ref_path = os.path.join(dirname, "../../qalb_test/QALB-Test2014.m2")
-# out_align_input_ref = os.path.join(dirname, "../../output/align_input_ref.tsv")
-
-
 def _generate_align_pairs(list_indices_input_correct, current_line):
     i = 0
     exp_indices = _expand_list_indices(list_indices_input_correct)
@@ -70,7 +66,6 @@ def adjust_null_to_token(alignments):
             al = alignments[rg[0]:rg[1] + 1]
             new_al = list(zip(*al))
             compressed_elt = " ".join(new_al[1])
-            # alignments[rg[0] - 1][1] = alignments[rg[0] - 1][1] + compressed_elt
 
             try:
 
@@ -135,10 +130,8 @@ def split_alignments_by_sentence(alignments):
 
 def align_input_reference(ref_path, out_path):
     i = 0
-    # input_path = "../../input/raw_qalb_test.txt"
     fw_raw = codecs.open(input_path, "w", "utf8")
     fw_align = codecs.open(out_path, "w", "utf8")
-    # fw_align.write("source" + "\t" + "reference" + "\n")
     with codecs.open(ref_path, "r", "utf8") as f:
         for l in f:
             if l == "\n":
