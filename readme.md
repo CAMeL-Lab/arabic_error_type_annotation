@@ -154,6 +154,10 @@ In the configuration file ```config.json```, the user should specify the mode of
 | **Merge**         | MG        | Words are merged                                    | ذهبتالبارحة ← ذهبت البارحة | *hbtAlbArHp → *hbt AlbArHp | 
 | **Split**         | SP        | Words are split                                     | المحا دثات ← المحادثات     | AlmHA dvAt → AlmHAdvAt     | 
 
+## Citation
+If you find ARETA useful in your research, please cite
+**Automatic Error Type Annotation for Arabic (Belkebir and Habash, 2021)** ([PDF](https://aclanthology.org/2021.conll-1.47.pdf)) ([BIB](https://aclanthology.org/2021.conll-1.47.bib)).
+
 ## License
 This tool is available under the MIT license. See the [LICENSE file](https://github.com/CAMeL-Lab/arabic_error_type_annotation/blob/main/LICENSE) for more info.
 
