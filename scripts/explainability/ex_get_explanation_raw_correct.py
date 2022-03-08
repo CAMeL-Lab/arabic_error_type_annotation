@@ -126,6 +126,7 @@ def wa_part_semantic(path):
 
 
 def explain_error(raw, correct):
+    path = ([[],[]], 0)
     try:
         raw = " ".join(raw.split())
         correct = " ".join(correct.split())
@@ -189,6 +190,7 @@ def explain_error(raw, correct):
             if path_option == "shortest_path":
                 all_paths = _get_shortest_path(errors)
                 path = all_paths[0]
+
                 if len(all_paths) > 1:
                     second_path = all_paths[1]
                 else:
@@ -258,7 +260,7 @@ def explain_error(raw, correct):
         elif get_punct_error(raw, correct) != "" and err_type_tag != "":
             err_type_tag = "+".join([err_type_tag, get_punct_error(raw, correct)])
 
-        return err_type_tag
+        return err_type_tag, path
 
     except Exception as ex:
 
