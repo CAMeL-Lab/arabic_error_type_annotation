@@ -2,7 +2,7 @@ from scripts.annotation.an_annotate_error_type import annotate
 from scripts.alignment.al_align_input_system import align_ref_system_basic
 
 
-def annote_ref_sys(ref_path, sys_path):
+def annote_ref_sys(ref_path, sys_path, show_paths=False):
     # Aligned files
     out_align_sys_ref = "output/align_sys_ref.tsv"
 
@@ -13,6 +13,7 @@ def annote_ref_sys(ref_path, sys_path):
     align_ref_system_basic(sys_path, ref_path, out_align_sys_ref)
 
     # Annotation process
-    annotation_lines = annotate(out_align_sys_ref, out_annot_sys_ref)
+    annotation_lines = annotate(out_align_sys_ref, out_annot_sys_ref,
+                                show_paths=show_paths)
 
     return annotation_lines
