@@ -16,17 +16,18 @@ pip install -r requirements.txt
 ```
 Usage: annotate_err_type_ar.py [OPTIONS] system reference 
 where
-    system - the system output
-    reference - the reference file
+    --sys_path - the system output
+    --ref_path - the reference file
 OPTIONS
-    --output output file location; default is standard output.
+    --show_edit_paths - whether to show the shortest edit paths or not; defaults to false.
+    --output_path - output file directory; defaults to standard output.
     
 ```
 
 Example:
 
 ```
-python annotate_err_type_ar.py sample/sys_sample.txt sample/ref_sample.txt
+python annotate_err_type_ar.py --sys_path sample/sys_sample.txt --ref_path sample/ref_sample.txt
 ```
 
 The output lists triplets of system, reference and error types. For the complete list of error types, see [table of error types](#table-of-error-types) below.
