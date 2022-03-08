@@ -14,10 +14,10 @@ pip install -r requirements.txt
 ## Usage
 ### Error Type Annotation:
 ```
-Usage: annotate_err_type_ar.py [OPTIONS] system reference 
+Usage: annotate_err_type_ar.py [OPTIONS] --sys_path system --ref_path reference 
 where
-    --sys_path - the system output
-    --ref_path - the reference file
+    system - the system output
+    reference - the reference file
 OPTIONS
     --show_edit_paths - whether to show the shortest edit paths or not; defaults to false.
     --output_path - output file directory; defaults to standard output.
