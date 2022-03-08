@@ -11,7 +11,7 @@ def _normalize_punct(s):
     return s
 
 
-def annotate(aligned_file, annot_file_out):
+def annotate(aligned_file, annot_file_out, show_paths=False):
     i = 0
     lines = []
     fw = codecs.open(annot_file_out, "w", "utf8")
@@ -26,11 +26,17 @@ def annotate(aligned_file, annot_file_out):
                 raw_word = raw_word.replace("\r", "")
                 correct_word = l.split("\t")[1].replace("\n", "").replace("\r", " ")
                 correct_word = _normalize_punct(correct_word)
+                # import pdb; pdb.set_trace()
                 if correct_word.startswith(" "):
                     correct_word = correct_word[1:]
                 try:
-                    explain = explain_error(raw_word, correct_word)
-                    line = "\t".join([raw_word, correct_word, "+".join(list(set(explain.split("+"))))]) + "\n"
+                    explain, path = explain_error(raw_word, correct_word)
+                    line = "\t".join([raw_word, correct_word, "+".join(list(set(explain.split("+"))))])
+                    if show_paths and path:
+                        orth_path, morph_path = path[0]
+                        line = line + f"\tOrth Path: {orth_path}\tMorph Path: {str(morph_path)}\n"
+                    else:
+                        line += "\n"
                     lines.append(line)
                     fw.write(line)
                 except:
