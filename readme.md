@@ -3,7 +3,7 @@
 ## Description
 The Arabic Error Type Annotation tool (ARETA) aims to annotate Arabic error types following the Arabic Learner Corpus ([ALC](https://www.arabiclearnercorpus.com/)) tagset annotation. ARETA is described in [Automatic Error Type Annotation for Arabic (Belkebir and Habash, 2021)](https://aclanthology.org/2021.conll-1.47.pdf).
 ## Installation
-You will need Python 3.6 and above (64-bit).
+You will need Python 3.7 and above (64-bit).
 
 1. Install [CamelTools](https://github.com/CAMeL-Lab/camel_tools#install-using-pip).
 2. Install requirements.
