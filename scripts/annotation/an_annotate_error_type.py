@@ -31,7 +31,7 @@ def annotate(aligned_file, annot_file_out, show_paths=False):
                     correct_word = correct_word[1:]
                 try:
                     explain, path = explain_error(raw_word, correct_word)
-                    line = "\t".join([raw_word, correct_word, "+".join(list(set(explain.split("+"))))])
+                    line = "\t".join([raw_word, correct_word, "+".join(sorted(list(set(explain.split("+")))))])
                     if show_paths and path:
                         orth_path, morph_path = path[0]
                         line = line + f"\tOrth Path: {orth_path}\tMorph Path: {str(morph_path)}\n"
