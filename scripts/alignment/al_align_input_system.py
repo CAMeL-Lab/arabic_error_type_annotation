@@ -51,12 +51,14 @@ def align_ref_system_basic(f_system_path, f_ref_path, out_path):
         sub_al = adjust_null_to_token(sub_al)
         alignments.append(sub_al)
 
+    # import pdb; pdb.set_trace()
     fw = codecs.open(out_path, "w", "utf8")
     fw.write("source" + "\t" + "reference" + "\n")
 
     for sub_al in alignments:
         for al in sub_al:
-            fw.write("\t".join([al[0].replace("#", " "), al[1].replace("#", " ")]) + "\n")
+            # fw.write("\t".join([al[0].replace("#", " "), al[1].replace("#", " ")]) + "\n")
+            fw.write("\t".join([al[0], al[1]]) + "\n")
         fw.write("\n")
 
 
