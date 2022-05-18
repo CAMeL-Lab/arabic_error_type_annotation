@@ -48,6 +48,8 @@ Annotation result:
 | صعبة     | صعب     | XG    | 
 
  
+**Note**: It is important to note that every sentence in the system/reference outputs must start with an `s`. Refer to [sample/sys_sample.txt](https://github.com/CAMeL-Lab/arabic_error_type_annotation/tree/main/sample/sys_sample.txt) and [sample/ref_sample.txt](https://github.com/CAMeL-Lab/arabic_error_type_annotation/tree/main/sample/ref_sample.txt) for examples on how these files should look like.
+
 
 ### Annotation and evaluation using m2 files (Command Line):
 ```
