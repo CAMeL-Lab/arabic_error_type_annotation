@@ -41,7 +41,7 @@ def annotate(aligned_file, annot_file_out, show_paths=False):
                     lines.append(line)
                     fw.write(line)
                 except:
-                    line = "\t".join([raw_word, correct_word, "unk"]) + "\n"
+                    line = "\t".join([raw_word, correct_word, "UNK"]) + "\n"
                     lines.append(line)
                     fw.write(line)
             i += 1

@@ -607,7 +607,7 @@ def explain_error(raw, correct):
             return "MG"
 
         elif len(a) > 15 or len(b) > 15:
-            return "unk"
+            return "UNK"
 
         elif is_punct_added(a, b):
             #print("PUNCTUATION_MISSING")
@@ -827,7 +827,7 @@ def explain_error(raw, correct):
                 return "+".join(orth_error(a, b, path)) + "+" + "+".join(morph_error(all_paths, a_m, b_m))
     except Exception as ex:
         # print(ex)
-        return 'unk'
+        return 'UNK'
 
     print(
         "##############################################################################################################"
