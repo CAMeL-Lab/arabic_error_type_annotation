@@ -4,10 +4,11 @@ from scripts.alignment.al_align_annotate import process_align_annot_eval
 
 
 def print_usage():
-    print("Usage: annotate_eval_ar.py [OPTIONS] source target")
+    print("Usage: annotate_eval_ar.py [OPTIONS] source target output")
     print("where")
     print("  source          -   the source input")
     print("  target          -   the target side of a parallel corpus or a system output")
+    print("  output          -   the output directory to save the alignments and results.")
     print("OPTIONS")
     # print("  -v    --verbose                   	-  print verbose output")
     # print("        --very_verbose              	-  print lots of verbose output")
@@ -22,13 +23,15 @@ def print_usage():
 opts, args = getopt(sys.argv[1:], "v", )
 
 # starting point
-if len(args) != 2:
+if len(args) != 3:
     print_usage()
     sys.exit(-1)
 
-ref_path = args[1]
 sys_path = args[0]
+ref_path = args[1]
+output_path = args[2]
 
 
-
-process_align_annot_eval(ref_path, sys_path, False)
+process_align_annot_eval(ref_path=ref_path,
+                         sys_path=sys_path,
+                         output_path=output_path, uc=False)

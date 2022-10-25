@@ -28,7 +28,7 @@ def _get_binary_form(err_types, dict_labels):
     return list(new_dict.values())
 
 
-def eval_multi_label_subclasses(uc, extension):
+def eval_multi_label_subclasses(uc, output_path, extension):
     mapped_err_type = []
     predicted_err_type = []
 
@@ -45,16 +45,16 @@ def eval_multi_label_subclasses(uc, extension):
     dict_labels = dict_.keys()
     list_labels_err_type = list(dict_labels)
 
-    with codecs.open("./output/annot_input_ref.tsv", "r", "utf8") as f:
+    with codecs.open(f"{output_path}/annot_input_ref.tsv", "r", "utf8") as f:
         for l in f:
             mapped_err_type.append(_get_binary_form(l.split("\t")[2], dict_))
 
-    with codecs.open("./output/annot_input_sys.tsv", "r", "utf8") as f:
+    with codecs.open(f"{output_path}/annot_input_sys.tsv", "r", "utf8") as f:
         for l in f:
             predicted_err_type.append(_get_binary_form(l.split("\t")[2], dict_))
 
     results = classification_report(mapped_err_type, predicted_err_type, output_dict=True)
-    fw = codecs.open("results/subclasses_results_" + str(extension) + ".tsv", "w", "utf8")
+    fw = codecs.open(f"{output_path}/subclasses_results_" + str(extension) + ".tsv", "w", "utf8")
     fw.write("\t".join(["CLASS", "PRECISION", "RECALL", "F1-Score", "SUPPORT"]) + "\n")
     i = 0
     new_sec = False
@@ -74,4 +74,4 @@ def eval_multi_label_subclasses(uc, extension):
         # print("\t".join(line))
         i += 1
     fw.close()
-    print("Results saved to: " + "results/subclasses_results_" + str(extension))
+    print("Results saved to: " + f"{output_path}/subclasses_results_" + str(extension))
