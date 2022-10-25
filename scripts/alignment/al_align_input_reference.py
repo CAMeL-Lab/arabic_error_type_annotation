@@ -110,7 +110,8 @@ def _reconstruct_raw_reference(list_indices_input_correct):
     new_sentence_raw = []
     new_sentence_reference = []
     for e in list_indices_input_correct:
-        raw_input = "#".join(e[2].split())
+        # raw_input = "#".join(e[2].split())
+        raw_input = "<SSSS>".join(e[2].split())
         new_sentence_raw.append(raw_input)
         new_sentence_reference.append(e[3])
     return " ".join(new_sentence_raw), " ".join(new_sentence_reference)
