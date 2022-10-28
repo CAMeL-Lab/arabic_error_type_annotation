@@ -3,11 +3,21 @@ from scripts.explainability.ex_get_explanation_raw_correct import explain_error
 
 
 def _normalize_punct(s):
+    # OLD:
+    # from unicodedata import category
+    # if len(s) > 2 and category(s[0])[0] == 'P' and s[1] == ' ':
+    #     return s[2:] + s[0]
+    # elif len(s) == 2 and category(s[0])[0] == 'P' and s[1] == ' ':
+    #     return s[0]
+    # return s
+
+    #NEW:
+    #The above function takes out spaces in cases of inserting
+    #puncs before or after words. ARETA inserts white spaces for
+    #punc subtituation errors, we just need to strip those out.
     from unicodedata import category
-    if len(s) > 2 and category(s[0])[0] == 'P' and s[1] == ' ':
-        return s[2:] + s[0]
-    elif len(s) == 2 and category(s[0])[0] == 'P' and s[1] == ' ':
-        return s[0]
+    if len(s.strip()) == 1 and category(s.strip()[0])[0] == 'P':
+        return s.strip()
     return s
 
 
